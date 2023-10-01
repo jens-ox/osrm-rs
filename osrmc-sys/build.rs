@@ -54,8 +54,8 @@ fn main() {
     // DYLD_LIBRARY_PATH environment variable can no longer be used on MacOS due to System Integrity
     // Protection. `/usr/local` is the Homebrew install path on Intel and `/opt/homebrew` is for
     // Apple Silicon.
-    println!("cargo:rustc-link-search=/usr/local/opt/tbb@2021/lib");
-    println!("cargo:rustc-link-search=/opt/homebrew/opt/tbb@2021/lib");
+    println!("cargo:rustc-link-search=/usr/local/opt/tbb/lib");
+    println!("cargo:rustc-link-search=/opt/homebrew/opt/tbb/lib");
     println!("cargo:rustc-link-search=/opt/homebrew/opt/boost/lib");
     println!("cargo:rustc-link-lib=tbb");
 
