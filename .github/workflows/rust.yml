@@ -21,20 +21,18 @@ jobs:
       with:
         components: clippy
     - uses: Swatinem/rust-cache@v2
-    - name: Update Homebrew
-      run:  brew update --preinstall
-    - name: Configure Homebrew cache
-      uses: actions/cache@v2
+    - name: Install OSRM dependencies
+      run: sudo apt install build-essential git cmake pkg-config libbz2-dev libxml2-dev libzip-dev libboost-all-dev lua5.2 liblua5.2-dev libtbb-dev
+    - name: Checkout PSRM
+      uses: actions/checkout@v3
       with:
-        path: |
-          ~/Library/Caches/Homebrew/*
-          ~/Library/Caches/Homebrew/downloads/*--*
-        key: brew-${{ hashFiles('.github/brew-formulae') }}
-        restore-keys: brew-
-    - name: Install Homebrew dependencies
-      run: |
-        env HOMEBREW_NO_AUTO_UPDATE=1 brew install osrm-backend
-    - name: Build
+        repository: Project-OSRM/osrm-backend
+        path: './osrm-backend'
+    - name: Build OSRM
+      run: mkdir -p build && cmake && cmake --build . && cmake --build . --target install
+      with:
+        working-directory: './osrm-backend'
+    - name: Build library
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
