@@ -29,9 +29,7 @@ jobs:
         repository: Project-OSRM/osrm-backend
         path: './osrm-backend'
     - name: Build OSRM
-      run: mkdir -p build && cmake && cmake --build . && cmake --build . --target install
-      with:
-        working-directory: './osrm-backend'
+      run: cd osrm-backend && mkdir -p build && cmake && cmake --build . && cmake --build . --target install
     - name: Build library
       run: cargo build --verbose
     - name: Run tests
