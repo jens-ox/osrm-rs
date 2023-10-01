@@ -1,6 +1,6 @@
 [package]
 name = "osrm"
-version = "0.0.2"
+version = "0.0.3"
 description = "Bindings for Open Source Routing Machine (OSRM)."
 license = "MIT"
 authors = ["Michael Killough <michael.killough@deliveroo.co.uk>"]
