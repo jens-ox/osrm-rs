@@ -28,13 +28,27 @@ jobs:
       with:
         repository: Project-OSRM/osrm-backend
         path: './osrm-backend'
-    - name: Build OSRM
+    - name: Cache OSRM build
+      id: cache-osrm
+      uses: actions/cache@v3
+      with:
+        path: osrm-backend/build
+        key: ${{ runner.os }}-osrm
+    - name: Build OSRM step 1
+      if: steps.cache-osrm.outputs.cache-hit != 'true'
       run: |
         cd osrm-backend
         mkdir -p build
         cd build
         cmake ..
+    - name: Build OSRM step 2
+      if: steps.cache-osrm.outputs.cache-hit != 'true'
+      run: |
+        cd osrm-backend
         cmake --build .
+    - name: Install OSRM
+      run: |
+        cd osrm-backend
         sudo cmake --build . --target install
     - name: Build library
       run: cargo build --verbose
