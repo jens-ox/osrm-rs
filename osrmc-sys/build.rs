@@ -42,8 +42,11 @@ fn generate_libosrmc_bindings() {
 }
 
 fn main() {
+    println!("Starting osrmc-sys build step");
     compile_libosrmc();
+    println!("Compiled libosrmc");
     generate_libosrmc_bindings();
+    println!("Generated libosrmc bindings");
 
     println!("cargo:rustc-link-lib=boost_system");
     println!("cargo:rustc-link-lib=boost_filesystem");
