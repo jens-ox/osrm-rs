@@ -44,11 +44,11 @@ jobs:
     - name: Build OSRM step 2
       if: steps.cache-osrm.outputs.cache-hit != 'true'
       run: |
-        cd osrm-backend
+        cd osrm-backend/build
         cmake --build .
     - name: Install OSRM
       run: |
-        cd osrm-backend
+        cd osrm-backend/build
         sudo cmake --build . --target install
     - name: Build library
       run: cargo build --verbose
