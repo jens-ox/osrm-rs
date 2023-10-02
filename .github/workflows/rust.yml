@@ -28,9 +28,10 @@ jobs:
       with:
         repository: Project-OSRM/osrm-backend
         path: './osrm-backend'
-    - name: Cache OSRM build
+
+    - name: Restore OSRM build
       id: cache-osrm
-      uses: actions/cache@v3
+      uses: actions/cache/restore@v3
       with:
         path: osrm-backend/build
         key: ${{ runner.os }}-osrm
@@ -50,6 +51,12 @@ jobs:
       run: |
         cd osrm-backend/build
         sudo cmake --build . --target install
+    - name: Save OSRM build
+      id: cache-osrm-save
+      uses: actions/cache/save@v3
+      with:
+        path: osrm-backend/build
+        key: ${{ steps.cache-osrm.outputs.cache-primary-key }}
     - name: Build library
       run: cargo build --verbose
     - name: Run tests
