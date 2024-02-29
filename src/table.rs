@@ -58,16 +58,13 @@ impl Parameters {
 
     pub fn add_source(&mut self, coordinate: &Coordinate) -> Result<()> {
         let index = self.add_coordinate(coordinate)?;
-        call_with_error!(osrmc_table_params_add_source(self.handle, index as u64))?;
+        call_with_error!(osrmc_table_params_add_source(self.handle, index))?;
         Ok(())
     }
 
     pub fn add_destination(&mut self, coordinate: &Coordinate) -> Result<()> {
         let index = self.add_coordinate(coordinate)?;
-        call_with_error!(osrmc_table_params_add_destination(
-            self.handle,
-            index as u64
-        ))?;
+        call_with_error!(osrmc_table_params_add_destination(self.handle, index))?;
         Ok(())
     }
 }
